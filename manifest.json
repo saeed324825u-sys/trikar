@@ -1,0 +1,45 @@
+{
+  "name": "نماز و عادات ٹریکر — Prayer & Habit Tracker",
+  "short_name": "نماز ٹریکر",
+  "description": "12 ماہی نماز ٹریکنگ، یومیہ عادات، یاد دہانیاں اور آف لائن سپورٹ کے ساتھ ایک محفوظ، ذاتی ٹریکر",
+  "start_url": "./index.html",
+  "scope": "./",
+  "id": "./index.html",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "background_color": "#05070a",
+  "theme_color": "#05070a",
+  "dir": "rtl",
+  "lang": "ur",
+  "categories": [
+    "lifestyle",
+    "productivity",
+    "health"
+  ],
+  "icons": [
+    {
+      "src": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxOTIgMTkyIj48cmVjdCB3aWR0aD0iMTkyIiBoZWlnaHQ9IjE5MiIgcng9IjM4LjQwMDAwMDAwMDAwMDAwNiIgZmlsbD0iIzA3MGExMCIvPjxjaXJjbGUgY3g9Ijk2LjAwIiBjeT0iMzQuNTYiIHI9IjkuMDIiIGZpbGw9IiNmMGI0MjkiLz48Y2lyY2xlIGN4PSIxMzkuNDQiIGN5PSI1Mi41NiIgcj0iOS4wMiIgZmlsbD0iI2YwYjQyOSIvPjxjaXJjbGUgY3g9IjE1Ny40NCIgY3k9Ijk2LjAwIiByPSI5LjAyIiBmaWxsPSIjZjBiNDI5Ii8+PGNpcmNsZSBjeD0iMTM5LjQ0IiBjeT0iMTM5LjQ0IiByPSI5LjAyIiBmaWxsPSIjZjBiNDI5Ii8+PGNpcmNsZSBjeD0iOTYuMDAiIGN5PSIxNTcuNDQiIHI9IjkuMDIiIGZpbGw9IiNmMGI0MjkiLz48Y2lyY2xlIGN4PSI1Mi41NiIgY3k9IjEzOS40NCIgcj0iOS4wMiIgZmlsbD0iI2YwYjQyOSIvPjxjaXJjbGUgY3g9IjM0LjU2IiBjeT0iOTYuMDAiIHI9IjkuMDIiIGZpbGw9IiNmMGI0MjkiLz48Y2lyY2xlIGN4PSI1Mi41NiIgY3k9IjUyLjU2IiByPSI5LjAyIiBmaWxsPSIjZjBiNDI5Ii8+PGNpcmNsZSBjeD0iOTYiIGN5PSI5NiIgcj0iMTYuMzIiIGZpbGw9IiNmNDQzNmMiLz48L3N2Zz4=",
+      "sizes": "192x192",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    },
+    {
+      "src": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxOTIgMTkyIj48cmVjdCB3aWR0aD0iMTkyIiBoZWlnaHQ9IjE5MiIgcng9IjM4LjQwMDAwMDAwMDAwMDAwNiIgZmlsbD0iIzA3MGExMCIvPjxjaXJjbGUgY3g9Ijk2LjAwIiBjeT0iMzQuNTYiIHI9IjkuMDIiIGZpbGw9IiNmMGI0MjkiLz48Y2lyY2xlIGN4PSIxMzkuNDQiIGN5PSI1Mi41NiIgcj0iOS4wMiIgZmlsbD0iI2YwYjQyOSIvPjxjaXJjbGUgY3g9IjE1Ny40NCIgY3k9Ijk2LjAwIiByPSI5LjAyIiBmaWxsPSIjZjBiNDI5Ii8+PGNpcmNsZSBjeD0iMTM5LjQ0IiBjeT0iMTM5LjQ0IiByPSI5LjAyIiBmaWxsPSIjZjBiNDI5Ii8+PGNpcmNsZSBjeD0iOTYuMDAiIGN5PSIxNTcuNDQiIHI9IjkuMDIiIGZpbGw9IiNmMGI0MjkiLz48Y2lyY2xlIGN4PSI1Mi41NiIgY3k9IjEzOS40NCIgcj0iOS4wMiIgZmlsbD0iI2YwYjQyOSIvPjxjaXJjbGUgY3g9IjM0LjU2IiBjeT0iOTYuMDAiIHI9IjkuMDIiIGZpbGw9IiNmMGI0MjkiLz48Y2lyY2xlIGN4PSI1Mi41NiIgY3k9IjUyLjU2IiByPSI5LjAyIiBmaWxsPSIjZjBiNDI5Ii8+PGNpcmNsZSBjeD0iOTYiIGN5PSI5NiIgcj0iMTYuMzIiIGZpbGw9IiNmNDQzNmMiLz48L3N2Zz4=",
+      "sizes": "192x192",
+      "type": "image/svg+xml",
+      "purpose": "maskable"
+    },
+    {
+      "src": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA1MTIgNTEyIj48cmVjdCB3aWR0aD0iNTEyIiBoZWlnaHQ9IjUxMiIgcng9IjEwMi40IiBmaWxsPSIjMDcwYTEwIi8+PGNpcmNsZSBjeD0iMjU2LjAwIiBjeT0iOTIuMTYiIHI9IjI0LjA2IiBmaWxsPSIjZjBiNDI5Ii8+PGNpcmNsZSBjeD0iMzcxLjg1IiBjeT0iMTQwLjE1IiByPSIyNC4wNiIgZmlsbD0iI2YwYjQyOSIvPjxjaXJjbGUgY3g9IjQxOS44NCIgY3k9IjI1Ni4wMCIgcj0iMjQuMDYiIGZpbGw9IiNmMGI0MjkiLz48Y2lyY2xlIGN4PSIzNzEuODUiIGN5PSIzNzEuODUiIHI9IjI0LjA2IiBmaWxsPSIjZjBiNDI5Ii8+PGNpcmNsZSBjeD0iMjU2LjAwIiBjeT0iNDE5Ljg0IiByPSIyNC4wNiIgZmlsbD0iI2YwYjQyOSIvPjxjaXJjbGUgY3g9IjE0MC4xNSIgY3k9IjM3MS44NSIgcj0iMjQuMDYiIGZpbGw9IiNmMGI0MjkiLz48Y2lyY2xlIGN4PSI5Mi4xNiIgY3k9IjI1Ni4wMCIgcj0iMjQuMDYiIGZpbGw9IiNmMGI0MjkiLz48Y2lyY2xlIGN4PSIxNDAuMTUiIGN5PSIxNDAuMTUiIHI9IjI0LjA2IiBmaWxsPSIjZjBiNDI5Ii8+PGNpcmNsZSBjeD0iMjU2IiBjeT0iMjU2IiByPSI0My41MiIgZmlsbD0iI2Y0NDM2YyIvPjwvc3ZnPg==",
+      "sizes": "512x512",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    },
+    {
+      "src": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA1MTIgNTEyIj48cmVjdCB3aWR0aD0iNTEyIiBoZWlnaHQ9IjUxMiIgcng9IjEwMi40IiBmaWxsPSIjMDcwYTEwIi8+PGNpcmNsZSBjeD0iMjU2LjAwIiBjeT0iOTIuMTYiIHI9IjI0LjA2IiBmaWxsPSIjZjBiNDI5Ii8+PGNpcmNsZSBjeD0iMzcxLjg1IiBjeT0iMTQwLjE1IiByPSIyNC4wNiIgZmlsbD0iI2YwYjQyOSIvPjxjaXJjbGUgY3g9IjQxOS44NCIgY3k9IjI1Ni4wMCIgcj0iMjQuMDYiIGZpbGw9IiNmMGI0MjkiLz48Y2lyY2xlIGN4PSIzNzEuODUiIGN5PSIzNzEuODUiIHI9IjI0LjA2IiBmaWxsPSIjZjBiNDI5Ii8+PGNpcmNsZSBjeD0iMjU2LjAwIiBjeT0iNDE5Ljg0IiByPSIyNC4wNiIgZmlsbD0iI2YwYjQyOSIvPjxjaXJjbGUgY3g9IjE0MC4xNSIgY3k9IjM3MS44NSIgcj0iMjQuMDYiIGZpbGw9IiNmMGI0MjkiLz48Y2lyY2xlIGN4PSI5Mi4xNiIgY3k9IjI1Ni4wMCIgcj0iMjQuMDYiIGZpbGw9IiNmMGI0MjkiLz48Y2lyY2xlIGN4PSIxNDAuMTUiIGN5PSIxNDAuMTUiIHI9IjI0LjA2IiBmaWxsPSIjZjBiNDI5Ii8+PGNpcmNsZSBjeD0iMjU2IiBjeT0iMjU2IiByPSI0My41MiIgZmlsbD0iI2Y0NDM2YyIvPjwvc3ZnPg==",
+      "sizes": "512x512",
+      "type": "image/svg+xml",
+      "purpose": "maskable"
+    }
+  ]
+}

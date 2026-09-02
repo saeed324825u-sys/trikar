@@ -1,0 +1,1795 @@
+<!DOCTYPE html>
+<html lang="ur" dir="rtl">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover" />
+<title>نماز و عادات ٹریکر</title>
+<meta name="description" content="نمازوں اور روزمرہ عادات کی 12 ماہی ٹریکنگ — آف لائن، محفوظ اور یاد دہانیوں کے ساتھ" />
+<meta name="theme-color" content="#05070a" />
+<meta name="color-scheme" content="dark" />
+<meta name="mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+<meta name="apple-mobile-web-app-title" content="نماز ٹریکر" />
+<link rel="manifest" href="manifest.json" />
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2064%2064%22%3E%3Crect%20width%3D%2264%22%20height%3D%2264%22%20rx%3D%2212.8%22%20fill%3D%22%23070a10%22%2F%3E%3Ccircle%20cx%3D%2232.00%22%20cy%3D%2211.52%22%20r%3D%223.01%22%20fill%3D%22%23f0b429%22%2F%3E%3Ccircle%20cx%3D%2246.48%22%20cy%3D%2217.52%22%20r%3D%223.01%22%20fill%3D%22%23f0b429%22%2F%3E%3Ccircle%20cx%3D%2252.48%22%20cy%3D%2232.00%22%20r%3D%223.01%22%20fill%3D%22%23f0b429%22%2F%3E%3Ccircle%20cx%3D%2246.48%22%20cy%3D%2246.48%22%20r%3D%223.01%22%20fill%3D%22%23f0b429%22%2F%3E%3Ccircle%20cx%3D%2232.00%22%20cy%3D%2252.48%22%20r%3D%223.01%22%20fill%3D%22%23f0b429%22%2F%3E%3Ccircle%20cx%3D%2217.52%22%20cy%3D%2246.48%22%20r%3D%223.01%22%20fill%3D%22%23f0b429%22%2F%3E%3Ccircle%20cx%3D%2211.52%22%20cy%3D%2232.00%22%20r%3D%223.01%22%20fill%3D%22%23f0b429%22%2F%3E%3Ccircle%20cx%3D%2217.52%22%20cy%3D%2217.52%22%20r%3D%223.01%22%20fill%3D%22%23f0b429%22%2F%3E%3Ccircle%20cx%3D%2232%22%20cy%3D%2232%22%20r%3D%225.44%22%20fill%3D%22%23f4436c%22%2F%3E%3C%2Fsvg%3E" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Noto+Nastaliq+Urdu:wght@400..700&family=Vazirmatn:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+<style>
+/* =======================================================================
+   DESIGN TOKENS
+   Signature: the tasbih (prayer bead) motif — a ring of beads as the app
+   mark, single beads as tab indicators, the per-day "signal light" drawn
+   as a lit bead, and the analytics ring chart closing the loop. Warm
+   amber/gold is the brand glow (qandeel lantern light), not the cliché
+   cold cyan-on-black; violet is the quiet secondary accent.
+   ======================================================================= */
+:root{
+  --void:#05070a;
+  --surface:#0e1420;
+  --surface-2:#141b2a;
+  --surface-3:#1a2233;
+  --hairline:#232d40;
+  --hairline-soft:rgba(35,45,64,.6);
+  --ink:#eef2f8;
+  --ink-dim:#8992a8;
+  --ink-faint:#545d72;
+  --gold:#f0b429;
+  --gold-soft:rgba(240,180,41,.16);
+  --gold-glow:rgba(240,180,41,.5);
+  --violet:#8b6bf0;
+  --violet-soft:rgba(139,107,240,.18);
+  --adaa:#34d399;
+  --adaa-glow:rgba(52,211,153,.55);
+  --qaza:#facc15;
+  --qaza-glow:rgba(250,204,21,.5);
+  --missed:#f4436c;
+  --missed-glow:rgba(244,67,108,.55);
+  --unset:#3a4457;
+  --r-lg:22px;
+  --r-md:14px;
+  --r-sm:9px;
+  --r-pill:999px;
+  --font-display:'Noto Nastaliq Urdu', serif;
+  --font-ui:'Vazirmatn', 'Noto Sans Arabic', system-ui, sans-serif;
+  --shadow-card:0 8px 30px rgba(0,0,0,.35);
+  --ease:cubic-bezier(.2,.7,.3,1);
+}
+
+*,*::before,*::after{ box-sizing:border-box; }
+html,body{ height:100%; }
+body{
+  margin:0;
+  background:var(--void);
+  color:var(--ink);
+  font-family:var(--font-ui);
+  font-size:15px;
+  line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+}
+h1,h2,h3{ margin:0; font-family:var(--font-display); font-weight:600; }
+p{ margin:0; }
+button,input{ font-family:inherit; color:inherit; }
+button{ cursor:pointer; }
+ul,ol{ margin:0; padding:0; list-style:none; }
+img,svg{ display:block; max-width:100%; }
+a{ color:inherit; }
+
+/* Respect explicit user motion preference */
+@media (prefers-reduced-motion: reduce){
+  *,*::before,*::after{ animation-duration:.001ms !important; animation-iteration-count:1 !important; transition-duration:.001ms !important; scroll-behavior:auto !important; }
+}
+
+/* Visible, on-theme keyboard focus — never suppressed */
+:focus-visible{ outline:2px solid var(--gold); outline-offset:2px; border-radius:6px; }
+
+.hidden{ display:none !important; }
+
+/* Custom scrollbar for the horizontal month rails */
+.scroll-x{ scrollbar-width:thin; scrollbar-color:var(--hairline) transparent; }
+.scroll-x::-webkit-scrollbar{ height:6px; }
+.scroll-x::-webkit-scrollbar-thumb{ background:var(--hairline); border-radius:99px; }
+
+/* Ambient background — two soft blurred glows, quiet and restrained */
+#bgGlow{
+  position:fixed; inset:0; z-index:0; pointer-events:none; overflow:hidden;
+}
+#bgGlow::before,#bgGlow::after{
+  content:''; position:absolute; width:60vmax; height:60vmax; border-radius:50%;
+  filter:blur(90px); opacity:.16;
+}
+#bgGlow::before{ background:var(--gold); top:-20vmax; inset-inline-end:-20vmax; }
+#bgGlow::after{ background:var(--violet); bottom:-25vmax; inset-inline-start:-15vmax; }
+
+.app-container{ position:relative; z-index:1; min-height:100%; }
+</style>
+</head>
+<body>
+<div id="bgGlow" aria-hidden="true"></div>
+<div class="app-container">
+<style>
+/* =======================================================================
+   PRIMITIVES — buttons, fields, cards, toasts, modal
+   ======================================================================= */
+.btn{
+  display:inline-flex; align-items:center; justify-content:center; gap:8px;
+  padding:12px 18px; border-radius:var(--r-pill); border:1px solid transparent;
+  font-family:var(--font-ui); font-weight:600; font-size:14.5px;
+  transition:transform .15s var(--ease), box-shadow .15s var(--ease), background .15s var(--ease);
+  white-space:nowrap;
+}
+.btn:active{ transform:scale(.97); }
+.btn-primary{ background:var(--gold); color:#20150a; box-shadow:0 0 0 rgba(240,180,41,0); }
+.btn-primary:hover{ box-shadow:0 4px 22px var(--gold-glow); }
+.btn-ghost{ background:transparent; color:var(--ink); border-color:var(--hairline); }
+.btn-ghost:hover{ background:var(--surface-2); }
+.btn-danger{ background:var(--missed); color:#2a0810; }
+.btn-danger:hover{ box-shadow:0 4px 22px var(--missed-glow); }
+.btn-danger-outline{ background:transparent; color:var(--missed); border-color:var(--missed); }
+.btn-danger-outline:hover{ background:rgba(244,67,108,.1); }
+.btn-danger-text{ color:var(--missed); }
+.btn-block{ width:100%; }
+.file-btn{ position:relative; overflow:hidden; }
+
+.field{ display:flex; flex-direction:column; gap:6px; margin-block-end:14px; }
+.field-label{ font-size:13px; color:var(--ink-dim); }
+.field-input{
+  background:var(--surface-2); border:1px solid var(--hairline); border-radius:var(--r-sm);
+  padding:12px 14px; font-size:15px; color:var(--ink);
+}
+.field-input:focus{ border-color:var(--gold); }
+.field-hint{ font-size:12.5px; color:var(--ink-faint); line-height:1.6; margin-block-end:10px; }
+.field-error{ font-size:13px; color:var(--missed); min-height:18px; margin-block-end:4px; }
+
+.secret-mode{ display:flex; gap:8px; margin-block-end:14px; background:var(--surface-2); padding:4px; border-radius:var(--r-pill); }
+.secret-mode-btn{ flex:1; background:transparent; border:none; border-radius:var(--r-pill); padding:9px 10px; font-size:13.5px; color:var(--ink-dim); font-weight:600; }
+.secret-mode-btn.active{ background:var(--gold-soft); color:var(--gold); }
+
+.card{
+  background:var(--surface); border:1px solid var(--hairline-soft); border-radius:var(--r-lg);
+  padding:20px; margin-block-end:16px; box-shadow:var(--shadow-card);
+}
+.card-title{ font-size:16px; margin-block-end:4px; }
+
+.toast-wrap{ position:fixed; inset-inline:0; bottom:18px; z-index:200; display:flex; flex-direction:column; align-items:center; gap:8px; pointer-events:none; }
+.toast{
+  pointer-events:auto; background:var(--surface-3); border:1px solid var(--hairline);
+  color:var(--ink); padding:11px 20px; border-radius:var(--r-pill); font-size:13.5px;
+  box-shadow:0 8px 24px rgba(0,0,0,.4); opacity:0; transform:translateY(10px);
+  transition:opacity .25s var(--ease), transform .25s var(--ease); max-width:88vw; text-align:center;
+}
+.toast.show{ opacity:1; transform:translateY(0); }
+.toast-success{ border-color:rgba(52,211,153,.4); }
+.toast-error{ border-color:rgba(244,67,108,.5); }
+.toast-warn{ border-color:rgba(250,204,21,.4); }
+
+.modal-overlay{
+  position:fixed; inset:0; z-index:150; display:none; align-items:flex-end;
+  justify-content:center; background:rgba(2,4,8,.6); backdrop-filter:blur(3px);
+}
+.modal-overlay.open{ display:flex; }
+.modal-card{
+  width:100%; max-width:440px; background:var(--surface); border:1px solid var(--hairline);
+  border-radius:24px 24px 0 0; padding:24px 20px calc(20px + env(safe-area-inset-bottom));
+  animation:modalUp .22s var(--ease);
+}
+@media (min-width:560px){
+  .modal-overlay{ align-items:center; }
+  .modal-card{ border-radius:var(--r-lg); }
+}
+@keyframes modalUp{ from{ transform:translateY(24px); opacity:0; } to{ transform:translateY(0); opacity:1; } }
+.modal-title{ font-size:19px; margin-block-end:12px; }
+.modal-sub{ color:var(--ink-dim); font-size:13.5px; margin-block-end:14px; }
+.modal-body{ color:var(--ink-dim); font-size:14.5px; line-height:1.7; margin-block-end:20px; }
+.modal-actions{ display:flex; gap:10px; justify-content:flex-end; flex-wrap:wrap; }
+.modal-actions-3{ justify-content:space-between; }
+
+.empty-hint{ color:var(--ink-faint); font-size:13.5px; text-align:center; padding:18px 8px; }
+</style>
+<style>
+/* =======================================================================
+   PROFILE GATE
+   ======================================================================= */
+.gate{ min-height:100dvh; display:flex; align-items:center; justify-content:center; padding:28px 18px; }
+.gate-card{ width:100%; max-width:400px; }
+.brand{ text-align:center; margin-block-end:30px; }
+.brand-mark{ width:64px; height:64px; margin:0 auto 14px; filter:drop-shadow(0 0 14px var(--gold-glow)); }
+.brand-mark svg{ width:100%; height:100%; }
+.brand-title{ font-size:26px; color:var(--ink); margin-block-end:6px; }
+.brand-sub{ color:var(--ink-dim); font-size:13.5px; }
+
+.profile-list{ display:flex; flex-direction:column; gap:10px; margin-block-end:18px; }
+.profile-row{
+  display:flex; align-items:center; gap:12px; background:var(--surface);
+  border:1px solid var(--hairline-soft); border-radius:var(--r-md); padding:13px 16px;
+  transition:border-color .15s var(--ease), transform .15s var(--ease);
+}
+.profile-row:hover{ border-color:var(--gold); }
+.profile-row:active{ transform:scale(.985); }
+.profile-avatar{
+  width:38px; height:38px; border-radius:50%; background:var(--gold-soft); color:var(--gold);
+  display:flex; align-items:center; justify-content:center; font-weight:700; font-size:15px; flex:none;
+}
+.profile-row-name{ flex:1; text-align:start; font-size:15px; }
+.profile-row-arrow{ color:var(--ink-faint); transform:scaleX(-1); }
+
+/* =======================================================================
+   APP SHELL — topbar + tabbar
+   ======================================================================= */
+.shell{ min-height:100dvh; padding-block-end:24px; }
+.topbar{
+  display:flex; align-items:center; justify-content:space-between;
+  padding:16px 18px; position:sticky; top:0; z-index:40;
+  background:rgba(5,7,10,.82); backdrop-filter:blur(14px); border-bottom:1px solid var(--hairline-soft);
+}
+.topbar-left{ display:flex; align-items:center; gap:10px; }
+.topbar-mark{ width:26px; height:26px; flex:none; }
+.topbar-mark svg{ width:100%; height:100%; }
+.topbar-title{ font-family:var(--font-display); font-size:17px; }
+.topbar-right{ position:relative; }
+.profile-chip{
+  display:flex; align-items:center; gap:8px; background:var(--surface-2); border:1px solid var(--hairline);
+  border-radius:var(--r-pill); padding:6px 14px 6px 6px;
+}
+.profile-chip .profile-avatar{ width:28px; height:28px; font-size:12.5px; }
+#profileNameLabel{ font-size:13.5px; max-width:22vw; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+.profile-menu{
+  position:absolute; inset-inline-end:0; top:calc(100% + 8px); background:var(--surface-3);
+  border:1px solid var(--hairline); border-radius:var(--r-md); overflow:hidden; min-width:180px;
+  box-shadow:var(--shadow-card); z-index:50;
+}
+.profile-menu button{
+  display:block; width:100%; text-align:start; background:none; border:none; padding:13px 16px;
+  font-size:14px; color:var(--ink);
+}
+.profile-menu button:hover{ background:var(--surface-2); }
+.profile-menu button.danger{ color:var(--missed); }
+
+.tabbar{
+  display:flex; gap:4px; padding:10px 14px; overflow-x:auto; position:sticky; top:65px; z-index:30;
+  background:var(--void);
+}
+.tab-btn{
+  display:flex; align-items:center; gap:8px; background:none; border:none; white-space:nowrap;
+  padding:10px 14px; border-radius:var(--r-pill); font-size:13.5px; font-weight:600; color:var(--ink-faint);
+  transition:color .15s var(--ease), background .15s var(--ease);
+}
+.tab-btn:hover{ color:var(--ink-dim); }
+.tab-btn.active{ color:var(--gold); background:var(--gold-soft); }
+.tab-bead{ width:7px; height:7px; border-radius:50%; background:var(--hairline); flex:none; transition:background .15s var(--ease), box-shadow .15s var(--ease); }
+.tab-btn.active .tab-bead{ background:var(--gold); box-shadow:0 0 8px var(--gold-glow); }
+
+.tab-panels{ padding:18px; max-width:760px; margin:0 auto; }
+.tab-panel{ display:none; }
+.tab-panel.active{ display:block; animation:panelIn .25s var(--ease); }
+@keyframes panelIn{ from{ opacity:0; transform:translateY(6px); } to{ opacity:1; transform:translateY(0); } }
+
+.panel-head{ margin-block-end:16px; }
+.panel-title{ font-size:20px; margin-block-end:4px; }
+.panel-sub{ color:var(--ink-dim); font-size:13.5px; }
+</style>
+<style>
+/* =======================================================================
+   MONTH RAIL + MINI STATS (shared by Prayer + Habits tabs)
+   ======================================================================= */
+.month-rail{ display:flex; gap:8px; overflow-x:auto; padding-block-end:14px; margin-block-end:14px; border-bottom:1px solid var(--hairline-soft); }
+.month-chip{ flex:none; padding:9px 16px; border-radius:var(--r-pill); background:var(--surface); border:1px solid var(--hairline-soft); font-size:13.5px; color:var(--ink-dim); transition:all .15s var(--ease); }
+.month-chip.active{ background:var(--gold); color:#20150a; border-color:var(--gold); font-weight:700; }
+
+.month-stats{ display:grid; grid-template-columns:repeat(4,1fr); gap:8px; margin-block-end:16px; }
+.mini-stat{ background:var(--surface); border:1px solid var(--hairline-soft); border-radius:var(--r-md); padding:12px 6px; text-align:center; }
+.mini-stat-num{ display:block; font-size:19px; font-weight:800; }
+.mini-stat-label{ font-size:11px; color:var(--ink-faint); }
+.mini-stat-adaa .mini-stat-num{ color:var(--adaa); }
+.mini-stat-qaza .mini-stat-num{ color:var(--qaza); }
+.mini-stat-missed .mini-stat-num{ color:var(--missed); }
+.mini-stat-unset .mini-stat-num{ color:var(--ink-faint); }
+
+/* =======================================================================
+   PRAYER DAY GRID — the core signature surface
+   ======================================================================= */
+.day-grid{ display:flex; flex-direction:column; gap:2px; }
+.day-row{
+  display:grid; grid-template-columns:auto 1fr auto; grid-template-areas:"lead pills actions";
+  align-items:center; gap:10px; padding:10px; border-radius:var(--r-md); transition:background .15s var(--ease);
+}
+.day-row:hover{ background:var(--surface-2); }
+.day-row:nth-child(even){ background:rgba(255,255,255,.015); }
+.day-lead{ grid-area:lead; display:flex; align-items:center; gap:9px; min-width:44px; }
+.prayer-pills{ grid-area:pills; display:flex; gap:6px; flex-wrap:wrap; }
+.day-actions{ grid-area:actions; display:flex; gap:6px; }
+
+.signal-bead{ width:14px; height:14px; border-radius:50%; flex:none; transition:background .2s, box-shadow .2s; }
+.signal-bead.signal-gray{ background:var(--unset); }
+.signal-bead.signal-green{ background:var(--adaa); box-shadow:0 0 10px var(--adaa-glow); }
+.signal-bead.signal-yellow{ background:var(--qaza); box-shadow:0 0 10px var(--qaza-glow); }
+.signal-bead.signal-red{ background:var(--missed); box-shadow:0 0 10px var(--missed-glow); }
+.day-num{ font-weight:700; font-size:13.5px; color:var(--ink-dim); min-width:18px; }
+
+.pill{
+  padding:9px 12px; border-radius:var(--r-pill); border:1px solid var(--hairline);
+  background:var(--surface-2); font-size:12.5px; font-weight:600; color:var(--ink-dim);
+  transition:transform .12s var(--ease), background .15s, border-color .15s, color .15s, box-shadow .15s;
+}
+.pill:active{ transform:scale(.92); }
+.pill-unset{ color:var(--ink-faint); }
+.pill-adaa{ background:rgba(52,211,153,.14); border-color:var(--adaa); color:var(--adaa); box-shadow:0 0 10px rgba(52,211,153,.22); }
+.pill-qaza{ background:rgba(250,204,21,.14); border-color:var(--qaza); color:var(--qaza); box-shadow:0 0 10px rgba(250,204,21,.18); }
+.pill-missed{ background:rgba(244,67,108,.14); border-color:var(--missed); color:var(--missed); box-shadow:0 0 10px rgba(244,67,108,.22); }
+
+.mini-btn{ padding:8px 11px; border-radius:var(--r-pill); background:var(--gold-soft); color:var(--gold); font-size:11px; font-weight:700; border:none; white-space:nowrap; }
+.mini-btn-ghost{ background:var(--surface-2); color:var(--ink-faint); }
+
+@media (max-width:480px){
+  .day-row{ grid-template-columns:1fr auto; grid-template-areas:"lead actions" "pills pills"; row-gap:9px; padding-block:12px; border-bottom:1px solid var(--hairline-soft); }
+}
+
+/* =======================================================================
+   HABITS DAY GRID
+   ======================================================================= */
+.habit-row{
+  display:grid; grid-template-columns:auto 1fr auto; grid-template-areas:"lead checks progress";
+  align-items:center; gap:10px; padding:12px 10px; border-radius:var(--r-md);
+}
+.habit-row:nth-child(even){ background:rgba(255,255,255,.015); }
+.habit-row .day-lead{ grid-area:lead; }
+.habit-checks{ grid-area:checks; display:flex; gap:6px; flex-wrap:wrap; }
+.check-pill{
+  display:inline-flex; align-items:center; gap:6px; padding:8px 11px 8px 9px; border-radius:var(--r-pill);
+  border:1px solid var(--hairline); background:var(--surface-2); font-size:11.5px; color:var(--ink-dim); transition:all .15s var(--ease);
+}
+.check-mark{ width:14px; height:14px; border-radius:5px; border:1.5px solid var(--ink-faint); flex:none; position:relative; transition:all .15s var(--ease); }
+.check-pill.checked{ border-color:var(--adaa); color:var(--adaa); background:rgba(52,211,153,.12); }
+.check-pill.checked .check-mark{ background:var(--adaa); border-color:var(--adaa); }
+.check-pill.checked .check-mark::after{ content:''; position:absolute; inset-inline-start:4px; top:1px; width:4px; height:8px; border:solid #06281c; border-width:0 2px 2px 0; transform:rotate(35deg); }
+.progress-wrap{ grid-area:progress; display:flex; align-items:center; gap:8px; min-width:96px; }
+.progress-track{ flex:1; height:6px; border-radius:99px; background:var(--surface-2); overflow:hidden; }
+.progress-fill{ height:100%; background:linear-gradient(90deg,var(--violet),var(--gold)); border-radius:99px; transition:width .25s var(--ease); }
+.progress-pct{ font-size:11.5px; color:var(--ink-faint); min-width:32px; text-align:end; }
+
+@media (max-width:480px){
+  .habit-row{ grid-template-columns:1fr auto; grid-template-areas:"lead progress" "checks checks"; row-gap:9px; padding-block:12px; border-bottom:1px solid var(--hairline-soft); }
+  .progress-wrap{ min-width:0; }
+}
+</style>
+<style>
+/* =======================================================================
+   REMINDERS TAB
+   ======================================================================= */
+.perm-row{ display:flex; align-items:center; justify-content:space-between; gap:14px; flex-wrap:wrap; }
+.status-line{ font-size:13px; margin-block-start:4px; }
+.status-ok{ color:var(--adaa); }
+.status-bad{ color:var(--missed); }
+.status-warn{ color:var(--qaza); }
+
+.reminder-row{ display:flex; align-items:center; gap:12px; padding:11px 2px; border-bottom:1px solid var(--hairline-soft); }
+.reminder-row:last-child{ border-bottom:none; }
+.reminder-name{ flex:1; font-size:14px; }
+.time-input{ background:var(--surface-2); border:1px solid var(--hairline); border-radius:var(--r-sm); padding:8px 10px; font-size:13.5px; color:var(--ink); color-scheme:dark; }
+
+.switch{ position:relative; display:inline-block; flex:none; }
+.switch input{ position:absolute; opacity:0; width:1px; height:1px; }
+.switch-track{ display:block; width:42px; height:24px; background:var(--surface-2); border:1px solid var(--hairline); border-radius:99px; position:relative; transition:background .2s; }
+.switch-thumb{ position:absolute; top:2px; inset-inline-start:2px; width:18px; height:18px; border-radius:50%; background:var(--ink-faint); transition:transform .2s var(--ease), background .2s; }
+.switch input:checked + .switch-track{ background:var(--gold-soft); border-color:var(--gold); }
+.switch input:checked + .switch-track .switch-thumb{ background:var(--gold); transform:translateX(18px); box-shadow:0 0 8px var(--gold-glow); }
+html[dir="rtl"] .switch input:checked + .switch-track .switch-thumb{ transform:translateX(-18px); }
+.switch input:focus-visible + .switch-track{ outline:2px solid var(--gold); outline-offset:2px; }
+
+.weekday-picker{ display:flex; gap:6px; flex-wrap:wrap; margin-block-start:12px; }
+.weekday-chip{ padding:8px 12px; border-radius:var(--r-pill); background:var(--surface-2); border:1px solid var(--hairline); font-size:12.5px; color:var(--ink-dim); }
+.weekday-chip.active{ background:var(--gold); color:#20150a; border-color:var(--gold); font-weight:700; }
+
+.info-panel{ background:var(--violet-soft); border:1px solid rgba(139,107,240,.35); border-radius:var(--r-md); padding:16px; font-size:12.5px; line-height:1.85; color:var(--ink-dim); }
+.info-panel strong{ color:var(--ink); }
+.info-panel ul{ margin-block-start:8px; padding-inline-start:18px; list-style:disc; }
+.info-panel li{ margin-block-end:6px; }
+.test-notif-row{ margin-block:16px; }
+
+/* =======================================================================
+   DATA & ANALYTICS TAB
+   ======================================================================= */
+.stat-cards{ display:grid; grid-template-columns:repeat(2,1fr); gap:10px; margin-block-end:18px; }
+.stat-card{ background:var(--surface); border:1px solid var(--hairline-soft); border-radius:var(--r-md); padding:16px; text-align:center; }
+.stat-num{ display:block; font-size:24px; font-weight:800; color:var(--gold); }
+.stat-label{ font-size:11.5px; color:var(--ink-faint); }
+
+.chart-card{ background:var(--surface); border:1px solid var(--hairline-soft); border-radius:var(--r-lg); padding:18px; margin-block-end:16px; }
+.chart-card h3{ font-size:14.5px; margin-block-end:12px; color:var(--ink-dim); font-family:var(--font-ui); font-weight:700; }
+.chart-svg{ width:100%; height:auto; }
+.chart-bar{ fill:var(--gold); filter:drop-shadow(0 0 6px var(--gold-glow)); transition:opacity .15s; }
+.chart-bar:hover{ opacity:.8; }
+.chart-axis-label{ fill:var(--ink-faint); font-size:9px; font-family:var(--font-ui); }
+
+.ring-chart{ width:160px; height:160px; margin:0 auto; display:block; }
+.ring-bg{ fill:none; stroke:var(--surface-2); stroke-width:12; }
+.ring-fg{ fill:none; stroke:var(--gold); stroke-width:12; stroke-linecap:round; filter:drop-shadow(0 0 8px var(--gold-glow)); transition:stroke-dashoffset .4s var(--ease); }
+.ring-num{ fill:var(--ink); font-size:24px; font-weight:800; font-family:var(--font-ui); }
+.ring-caption{ fill:var(--ink-faint); font-size:11px; font-family:var(--font-ui); }
+.ring-note{ text-align:center; font-size:11.5px; color:var(--ink-faint); margin-block-start:10px; line-height:1.6; }
+
+.danger-zone{ border-color:rgba(244,67,108,.3); }
+.danger-zone h3{ color:var(--missed); font-size:14.5px; margin-block-end:10px; }
+
+@media (min-width:820px){ .tab-panels{ padding:24px 18px 40px; } }
+</style>
+<style>.button-row{ display:flex; gap:10px; flex-wrap:wrap; margin-block-start:6px; }</style>
+
+<div id="profileGate" class="gate">
+  <div class="gate-card">
+    <div class="brand">
+      <div class="brand-mark"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><rect width="64" height="64" rx="12.8" fill="#070a10"/><circle cx="32.00" cy="11.52" r="3.4" fill="#f0b429"/><circle cx="46.48" cy="17.52" r="3.4" fill="#f0b429"/><circle cx="52.48" cy="32.00" r="3.4" fill="#f0b429"/><circle cx="46.48" cy="46.48" r="3.4" fill="#f0b429"/><circle cx="32.00" cy="52.48" r="3.4" fill="#f0b429"/><circle cx="17.52" cy="46.48" r="3.4" fill="#f0b429"/><circle cx="11.52" cy="32.00" r="3.4" fill="#f0b429"/><circle cx="17.52" cy="17.52" r="3.4" fill="#f0b429"/><circle cx="32" cy="32" r="5.6" fill="#f4436c"/></svg></div>
+      <h1 class="brand-title">نماز و عادات ٹریکر</h1>
+      <p class="brand-sub">اپنی نمازوں اور روزمرہ عادات کا حساب رکھیں</p>
+    </div>
+    <div id="profileList" class="profile-list"></div>
+    <button type="button" id="btnAddProfile" class="btn btn-primary btn-block">+ نیا پروفائل بنائیں</button>
+  </div>
+</div>
+
+<div id="appShell" class="shell hidden">
+  <header class="topbar">
+    <div class="topbar-left">
+      <span class="topbar-mark"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><rect width="64" height="64" rx="12.8" fill="#070a10"/><circle cx="32.00" cy="11.52" r="3.4" fill="#f0b429"/><circle cx="46.48" cy="17.52" r="3.4" fill="#f0b429"/><circle cx="52.48" cy="32.00" r="3.4" fill="#f0b429"/><circle cx="46.48" cy="46.48" r="3.4" fill="#f0b429"/><circle cx="32.00" cy="52.48" r="3.4" fill="#f0b429"/><circle cx="17.52" cy="46.48" r="3.4" fill="#f0b429"/><circle cx="11.52" cy="32.00" r="3.4" fill="#f0b429"/><circle cx="17.52" cy="17.52" r="3.4" fill="#f0b429"/><circle cx="32" cy="32" r="5.6" fill="#f4436c"/></svg></span>
+      <span class="topbar-title">نماز و عادات ٹریکر</span>
+    </div>
+    <div class="topbar-right">
+      <button type="button" id="btnProfileMenu" class="profile-chip">
+        <span id="profileInitial" class="profile-avatar"></span>
+        <span id="profileNameLabel"></span>
+      </button>
+      <div id="profileMenu" class="profile-menu hidden">
+        <button type="button" data-act="switch">پروفائل تبدیل کریں</button>
+        <button type="button" data-act="delete" class="danger">پروفائل حذف کریں</button>
+      </div>
+    </div>
+  </header>
+
+  <nav class="tabbar scroll-x" id="tabbar">
+    <button type="button" class="tab-btn active" data-tab="prayer"><span class="tab-bead" aria-hidden="true"></span>نماز ٹریکر</button>
+    <button type="button" class="tab-btn" data-tab="habits"><span class="tab-bead" aria-hidden="true"></span>یومیہ عادات</button>
+    <button type="button" class="tab-btn" data-tab="reminders"><span class="tab-bead" aria-hidden="true"></span>یاد دہانیاں</button>
+    <button type="button" class="tab-btn" data-tab="data"><span class="tab-bead" aria-hidden="true"></span>ڈیٹا و تجزیہ</button>
+  </nav>
+
+  <main class="tab-panels">
+    <section class="tab-panel active" data-panel="prayer">
+      <div class="panel-head">
+        <h2 class="panel-title">١٢ ماہی نماز حکمتِ عملی</h2>
+        <p class="panel-sub">مہینہ منتخب کریں اور ہر دن کی پانچ نمازوں کی حالت درج کریں</p>
+      </div>
+      <div class="month-rail scroll-x" id="prayerMonthRail"></div>
+      <div class="month-stats" id="prayerMonthStats"></div>
+      <div class="day-grid" id="prayerDayGrid"></div>
+    </section>
+
+    <section class="tab-panel" data-panel="habits">
+      <div class="panel-head">
+        <h2 class="panel-title">یومیہ عادات کا جائزہ</h2>
+        <p class="panel-sub">ہر دن پانچ عادات مکمل کریں اور اپنی پیش رفت دیکھیں</p>
+      </div>
+      <div class="month-rail scroll-x" id="habitsMonthRail"></div>
+      <div class="day-grid" id="habitsDayGrid"></div>
+    </section>
+
+    <section class="tab-panel" data-panel="reminders">
+      <div class="panel-head">
+        <h2 class="panel-title">یاد دہانیاں</h2>
+        <p class="panel-sub">نمازوں کے اوقات پر اطلاعات فعال کریں</p>
+      </div>
+      <div class="card" id="notifPermCard"></div>
+      <div class="card">
+        <h3 class="card-title">نماز کی یاد دہانیاں</h3>
+        <div id="prayerReminderRows"></div>
+      </div>
+      <div class="card">
+        <h3 class="card-title">ہفتہ وار جائزہ</h3>
+        <div id="weeklyReminderRow"></div>
+      </div>
+      <div class="test-notif-row">
+        <button type="button" id="btnTestNotif" class="btn btn-ghost btn-block">ٹیسٹ اطلاع بھیجیں</button>
+      </div>
+      <div class="info-panel">
+        <strong>پس منظر میں اطلاعات کیسے کام کرتی ہیں</strong>
+        <ul>
+          <li>ایپ کھلی ہو تو یاد دہانی عین وقت پر آئے گی۔</li>
+          <li>ایپ بند ہو تب بھی، انسٹال شدہ حالت میں Chrome/Android پر بہترین کوشش کی بنیاد پر پس منظر اطلاع دی جاتی ہے — مگر وقت کا تعین براؤزر خود کرتا ہے، عین منٹ کی ضمانت نہیں۔</li>
+          <li>iOS پر یہ ایپ ہوم اسکرین پر شامل کرنا ضروری ہے، اور مکمل طور پر یقینی پس منظر ڈیلیوری کے لیے سرور درکار ہوتا ہے جو اس فائل میں شامل نہیں۔</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="tab-panel" data-panel="data">
+      <div class="panel-head">
+        <h2 class="panel-title">ڈیٹا اور تجزیات</h2>
+        <p class="panel-sub">اپنی مجموعی کارکردگی دیکھیں اور ڈیٹا محفوظ رکھیں</p>
+      </div>
+      <div class="stat-cards" id="statCards"></div>
+      <div class="chart-card">
+        <h3>ماہانہ ادائیگی (فیصد)</h3>
+        <div id="barChart"></div>
+      </div>
+      <div class="chart-card">
+        <h3>مجموعی کارکردگی</h3>
+        <div id="ringChartWrap"></div>
+      </div>
+      <div class="card">
+        <h3 class="card-title">بیک اپ</h3>
+        <p class="field-hint">بیک اپ فائل اِن‌کرپٹڈ حالت میں محفوظ ہوتی ہے — بحال کرنے کے بعد بھی ہر پروفائل کا اپنا PIN/پاس ورڈ درکار ہوگا۔</p>
+        <div class="button-row">
+          <button type="button" id="btnExport" class="btn btn-primary">بیک اپ ڈاؤن لوڈ کریں</button>
+          <label class="btn btn-ghost file-btn">
+            بیک اپ بحال کریں
+            <input type="file" id="fileImport" accept="application/json" hidden />
+          </label>
+        </div>
+      </div>
+      <div class="card danger-zone">
+        <h3>خطرناک زون</h3>
+        <button type="button" id="btnResetData" class="btn btn-danger-outline">اس سال کا ڈیٹا صاف کریں</button>
+      </div>
+    </section>
+  </main>
+</div>
+
+<div id="toastWrap" class="toast-wrap" aria-live="polite"></div>
+<div id="modalOverlay" class="modal-overlay"></div>
+</div><!-- /.app-container -->
+<script>
+/* =========================================================================
+   نماز و عادات ٹریکر — Prayer & Daily Habit Tracker
+   Single-file PWA logic. No external JS dependencies.
+   ========================================================================= */
+
+/* ---------------------------------------------------------------------
+   1. CONSTANTS & LABELS
+   --------------------------------------------------------------------- */
+const DB_NAME = 'salah_habit_tracker_db';
+const DB_VERSION = 1;
+const STORE_PROFILES = 'profiles';       // {username, displayName, salt, verifierIv, verifierCipher, createdAt}
+const STORE_RECORDS = 'records';         // {username, iv, cipher}  <- AES-GCM encrypted payload
+const STORE_REMINDERS = 'reminder_settings'; // {username, prayerTimes:{}, weekly:{}}  <- kept UNENCRYPTED on purpose (see notes below)
+
+const PRAYER_KEYS = ['fajr', 'dhuhr', 'asr', 'maghrib', 'isha'];
+const HABIT_KEYS = ['meals', 'study', 'sports', 'entertainment', 'sleep'];
+const DAYS_PER_MONTH = 30;
+const PRAYER_CYCLE = ['unset', 'adaa', 'qaza', 'missed'];
+
+const PRAYER_LABELS = { fajr: 'فجر', dhuhr: 'ظہر', asr: 'عصر', maghrib: 'مغرب', isha: 'عشاء' };
+const PRAYER_SHORT = { fajr: 'فجر', dhuhr: 'ظہر', asr: 'عصر', maghrib: 'مغرب', isha: 'عشاء' };
+const STATUS_LABELS = { unset: 'خالی', adaa: 'ادا', qaza: 'قضا', missed: 'ترک' };
+const HABIT_LABELS = {
+  meals: 'کھانا',
+  study: 'مطالعہ',
+  sports: 'ورزش',
+  entertainment: 'تفریح',
+  sleep: 'نیند (8 گھنٹے)'
+};
+const MONTH_NAMES = ['جنوری', 'فروری', 'مارچ', 'اپریل', 'مئی', 'جون', 'جولائی', 'اگست', 'ستمبر', 'اکتوبر', 'نومبر', 'دسمبر'];
+const WEEKDAY_NAMES = ['اتوار', 'پیر', 'منگل', 'بدھ', 'جمعرات', 'جمعہ', 'ہفتہ'];
+
+// Signature mark: a ring of "tasbih" (prayer bead) dots around a lit centre bead.
+// Built as a real SVG string (not hand-typed base64) so it is trivially
+// correct and easy to restyle later — the data URI is built at runtime.
+function iconSVGMarkup(size) {
+  size = size || 192;
+  const cx = size / 2, cy = size / 2;
+  const ringR = size * 0.32, dotR = size * 0.047, coreR = size * 0.085;
+  const beadCount = 8;
+  let dots = '';
+  for (let i = 0; i < beadCount; i++) {
+    const angle = (i / beadCount) * Math.PI * 2 - Math.PI / 2;
+    const x = (cx + ringR * Math.cos(angle)).toFixed(2);
+    const y = (cy + ringR * Math.sin(angle)).toFixed(2);
+    dots += `<circle cx="${x}" cy="${y}" r="${dotR.toFixed(2)}" fill="#f0b429"/>`;
+  }
+  return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${size} ${size}">` +
+    `<rect width="${size}" height="${size}" rx="${size * 0.2}" fill="#070a10"/>` +
+    dots +
+    `<circle cx="${cx}" cy="${cy}" r="${coreR.toFixed(2)}" fill="#f4436c"/>` +
+    `</svg>`;
+}
+
+function iconDataURI(size) {
+  return 'data:image/svg+xml,' + encodeURIComponent(iconSVGMarkup(size));
+}
+
+/* ---------------------------------------------------------------------
+   2. INDEXEDDB LAYER (promisified)
+   --------------------------------------------------------------------- */
+let _dbInstance = null;
+
+function openDB() {
+  if (_dbInstance) return Promise.resolve(_dbInstance);
+  return new Promise((resolve, reject) => {
+    const req = indexedDB.open(DB_NAME, DB_VERSION);
+    req.onupgradeneeded = (e) => {
+      const db = e.target.result;
+      if (!db.objectStoreNames.contains(STORE_PROFILES)) {
+        db.createObjectStore(STORE_PROFILES, { keyPath: 'username' });
+      }
+      if (!db.objectStoreNames.contains(STORE_RECORDS)) {
+        db.createObjectStore(STORE_RECORDS, { keyPath: 'username' });
+      }
+      if (!db.objectStoreNames.contains(STORE_REMINDERS)) {
+        db.createObjectStore(STORE_REMINDERS, { keyPath: 'username' });
+      }
+    };
+    req.onsuccess = (e) => { _dbInstance = e.target.result; resolve(_dbInstance); };
+    req.onerror = (e) => reject(e.target.error);
+  });
+}
+
+function idbGet(storeName, key) {
+  return openDB().then((db) => new Promise((resolve, reject) => {
+    const tx = db.transaction(storeName, 'readonly');
+    const req = tx.objectStore(storeName).get(key);
+    req.onsuccess = () => resolve(req.result || null);
+    req.onerror = () => reject(req.error);
+  }));
+}
+
+function idbGetAll(storeName) {
+  return openDB().then((db) => new Promise((resolve, reject) => {
+    const tx = db.transaction(storeName, 'readonly');
+    const req = tx.objectStore(storeName).getAll();
+    req.onsuccess = () => resolve(req.result || []);
+    req.onerror = () => reject(req.error);
+  }));
+}
+
+function idbPut(storeName, value) {
+  return openDB().then((db) => new Promise((resolve, reject) => {
+    const tx = db.transaction(storeName, 'readwrite');
+    tx.objectStore(storeName).put(value);
+    tx.oncomplete = () => resolve(true);
+    tx.onerror = () => reject(tx.error);
+  }));
+}
+
+function idbDelete(storeName, key) {
+  return openDB().then((db) => new Promise((resolve, reject) => {
+    const tx = db.transaction(storeName, 'readwrite');
+    tx.objectStore(storeName).delete(key);
+    tx.oncomplete = () => resolve(true);
+    tx.onerror = () => reject(tx.error);
+  }));
+}
+
+/* ---------------------------------------------------------------------
+   3. WEB CRYPTO LAYER — PBKDF2 (key derivation) + AES-GCM (encryption)
+   Every profile's tracking data is encrypted at rest with a key derived
+   from that profile's own PIN/password. There is no master key and no
+   recovery backdoor: forgetting the password means that profile's data
+   cannot be decrypted again. This is a deliberate trade-off, not an
+   oversight — see the "Delete Profile" flow for the only way out.
+   --------------------------------------------------------------------- */
+const _txtEnc = new TextEncoder();
+const _txtDec = new TextDecoder();
+
+function bufToB64(buf) {
+  const bytes = new Uint8Array(buf);
+  let bin = '';
+  for (let i = 0; i < bytes.length; i++) bin += String.fromCharCode(bytes[i]);
+  return btoa(bin);
+}
+
+function b64ToBuf(b64) {
+  const bin = atob(b64);
+  const bytes = new Uint8Array(bin.length);
+  for (let i = 0; i < bin.length; i++) bytes[i] = bin.charCodeAt(i);
+  return bytes.buffer;
+}
+
+function randomSaltB64() {
+  return bufToB64(crypto.getRandomValues(new Uint8Array(16)).buffer);
+}
+
+async function deriveKey(secret, saltB64) {
+  const salt = b64ToBuf(saltB64);
+  const baseKey = await crypto.subtle.importKey('raw', _txtEnc.encode(secret), 'PBKDF2', false, ['deriveKey']);
+  return crypto.subtle.deriveKey(
+    { name: 'PBKDF2', salt, iterations: 150000, hash: 'SHA-256' },
+    baseKey,
+    { name: 'AES-GCM', length: 256 },
+    false,
+    ['encrypt', 'decrypt']
+  );
+}
+
+async function encryptJSON(key, obj) {
+  const iv = crypto.getRandomValues(new Uint8Array(12));
+  const data = _txtEnc.encode(JSON.stringify(obj));
+  const cipherBuf = await crypto.subtle.encrypt({ name: 'AES-GCM', iv }, key, data);
+  return { iv: bufToB64(iv.buffer), cipher: bufToB64(cipherBuf) };
+}
+
+async function decryptJSON(key, ivB64, cipherB64) {
+  const iv = new Uint8Array(b64ToBuf(ivB64));
+  const cipherBuf = b64ToBuf(cipherB64);
+  const plainBuf = await crypto.subtle.decrypt({ name: 'AES-GCM', iv }, key, cipherBuf);
+  return JSON.parse(_txtDec.decode(plainBuf));
+}
+
+/* ---------------------------------------------------------------------
+   4. DATA MODEL HELPERS
+   --------------------------------------------------------------------- */
+function emptyDay() {
+  const prayers = {};
+  PRAYER_KEYS.forEach((k) => { prayers[k] = 'unset'; });
+  const habits = {};
+  HABIT_KEYS.forEach((k) => { habits[k] = false; });
+  return { prayers, habits };
+}
+
+function createEmptyYearData(year) {
+  const months = [];
+  for (let m = 0; m < 12; m++) {
+    const days = [];
+    for (let d = 0; d < DAYS_PER_MONTH; d++) days.push(emptyDay());
+    months.push({ name: MONTH_NAMES[m], days });
+  }
+  return { year: year || new Date().getFullYear(), months, meta: { createdAt: Date.now(), version: 1 } };
+}
+
+function nextStatus(current) {
+  const idx = PRAYER_CYCLE.indexOf(current);
+  return PRAYER_CYCLE[(idx + 1) % PRAYER_CYCLE.length];
+}
+
+// Priority: any Missed -> red. Else any Qaza or any still-Unset -> yellow (partial).
+// Else (nothing missed/qaza/unset left) -> all must be Adaa -> green.
+// All five Unset -> gray (nothing attempted yet).
+function computeSignal(prayers) {
+  const vals = PRAYER_KEYS.map((k) => prayers[k]);
+  if (vals.every((v) => v === 'unset')) return 'gray';
+  if (vals.some((v) => v === 'missed')) return 'red';
+  if (vals.some((v) => v === 'qaza') || vals.some((v) => v === 'unset')) return 'yellow';
+  return 'green';
+}
+
+function computeMonthPrayerStats(month) {
+  const s = { adaa: 0, qaza: 0, missed: 0, unset: 0 };
+  month.days.forEach((day) => {
+    PRAYER_KEYS.forEach((k) => { s[day.prayers[k]]++; });
+  });
+  return s;
+}
+
+function computeYearPrayerStats(data) {
+  const perMonth = data.months.map(computeMonthPrayerStats);
+  const totals = perMonth.reduce((acc, m) => {
+    acc.adaa += m.adaa; acc.qaza += m.qaza; acc.missed += m.missed; acc.unset += m.unset;
+    return acc;
+  }, { adaa: 0, qaza: 0, missed: 0, unset: 0 });
+  return { perMonth, totals };
+}
+
+function computeMonthHabitAvg(month) {
+  let sum = 0;
+  month.days.forEach((day) => {
+    const done = HABIT_KEYS.filter((k) => day.habits[k]).length;
+    sum += done / HABIT_KEYS.length;
+  });
+  return Math.round((sum / month.days.length) * 100);
+}
+
+// "Best" = longest run of fully-Adaa days anywhere in the cycle.
+// "Current" = the trailing run at the very end of the Jan->Dec sequence.
+// The tracker is a stylized 12x30 cycle, not bound to real calendar dates
+// (see spec: "30 days per month"), so "current streak" means "the run
+// you're on right now, reading the grid in order" rather than tied to today.
+function computeStreaks(data) {
+  let best = 0, running = 0;
+  data.months.forEach((month) => {
+    month.days.forEach((day) => {
+      if (computeSignal(day.prayers) === 'green') {
+        running++;
+        if (running > best) best = running;
+      } else {
+        running = 0;
+      }
+    });
+  });
+  return { current: running, best };
+}
+
+function pct(n, d) { return d ? Math.round((n / d) * 100) : 0; }
+
+function defaultPrayerTimes() {
+  const defaults = { fajr: '05:15', dhuhr: '13:15', asr: '16:45', maghrib: '18:45', isha: '20:15' };
+  const out = {};
+  PRAYER_KEYS.forEach((k) => { out[k] = { enabled: false, time: defaults[k], lastFired: '' }; });
+  return out;
+}
+
+/* ---------------------------------------------------------------------
+   5. AUTH / PROFILE LIFECYCLE
+   --------------------------------------------------------------------- */
+async function createProfile(username, displayName, secret) {
+  const existing = await idbGet(STORE_PROFILES, username);
+  if (existing) { const err = new Error('username_taken'); err.code = 'USERNAME_TAKEN'; throw err; }
+  const salt = randomSaltB64();
+  const key = await deriveKey(secret, salt);
+  const verifier = await encryptJSON(key, { ok: true, ts: Date.now() });
+  await idbPut(STORE_PROFILES, {
+    username, displayName, salt,
+    verifierIv: verifier.iv, verifierCipher: verifier.cipher,
+    createdAt: Date.now()
+  });
+  const emptyData = createEmptyYearData(new Date().getFullYear());
+  const encRecord = await encryptJSON(key, emptyData);
+  await idbPut(STORE_RECORDS, { username, iv: encRecord.iv, cipher: encRecord.cipher });
+  await idbPut(STORE_REMINDERS, {
+    username,
+    prayerTimes: defaultPrayerTimes(),
+    weekly: { enabled: false, day: 5, time: '18:00', lastFired: '' }
+  });
+  return key;
+}
+
+async function unlockProfile(username, secret) {
+  const profile = await idbGet(STORE_PROFILES, username);
+  if (!profile) { const err = new Error('no_profile'); err.code = 'NO_PROFILE'; throw err; }
+  const key = await deriveKey(secret, profile.salt);
+  try {
+    await decryptJSON(key, profile.verifierIv, profile.verifierCipher);
+  } catch (e) {
+    const err = new Error('bad_password'); err.code = 'BAD_PASSWORD'; throw err;
+  }
+  const rec = await idbGet(STORE_RECORDS, username);
+  const data = rec ? await decryptJSON(key, rec.iv, rec.cipher) : createEmptyYearData(new Date().getFullYear());
+  let reminders = await idbGet(STORE_REMINDERS, username);
+  if (!reminders) {
+    reminders = {
+      username, prayerTimes: defaultPrayerTimes(),
+      weekly: { enabled: false, day: 5, time: '18:00', lastFired: '' }
+    };
+    await idbPut(STORE_REMINDERS, reminders);
+  }
+  return { key, data, profile, reminders };
+}
+
+async function deleteProfileCompletely(username) {
+  await idbDelete(STORE_PROFILES, username);
+  await idbDelete(STORE_RECORDS, username);
+  await idbDelete(STORE_REMINDERS, username);
+}
+
+async function saveRecords(username, key, data) {
+  const encRecord = await encryptJSON(key, data);
+  await idbPut(STORE_RECORDS, { username, iv: encRecord.iv, cipher: encRecord.cipher });
+}
+
+/* ---------------------------------------------------------------------
+   6. APP STATE
+   --------------------------------------------------------------------- */
+const state = {
+  profiles: [],
+  activeUsername: null,
+  displayName: '',
+  cryptoKey: null,
+  data: null,
+  reminders: null,
+  activeTab: 'prayer',
+  prayerMonthIdx: 0,
+  habitMonthIdx: 0,
+  pendingDeleteUsername: null
+};
+
+function debounce(fn, wait) {
+  let t;
+  return function debounced(...args) {
+    clearTimeout(t);
+    t = setTimeout(() => fn.apply(this, args), wait);
+  };
+}
+
+async function persistData() {
+  if (!state.cryptoKey || !state.activeUsername || !state.data) return;
+  try {
+    await saveRecords(state.activeUsername, state.cryptoKey, state.data);
+  } catch (e) {
+    showToast('ڈیٹا محفوظ کرنے میں مسئلہ ہوا', 'error');
+  }
+}
+const persistDataDebounced = debounce(persistData, 450);
+
+async function persistReminders() {
+  if (!state.activeUsername || !state.reminders) return;
+  await idbPut(STORE_REMINDERS, state.reminders);
+}
+
+/* ---------------------------------------------------------------------
+   7. UI UTILITIES — toast + modals
+   --------------------------------------------------------------------- */
+function showToast(msg, kind) {
+  const wrap = document.getElementById('toastWrap');
+  if (!wrap) return;
+  const el = document.createElement('div');
+  el.className = 'toast' + (kind ? ' toast-' + kind : '');
+  el.textContent = msg;
+  wrap.appendChild(el);
+  requestAnimationFrame(() => el.classList.add('show'));
+  setTimeout(() => {
+    el.classList.remove('show');
+    setTimeout(() => el.remove(), 300);
+  }, 2600);
+}
+
+function closeOverlay() {
+  const overlay = document.getElementById('modalOverlay');
+  overlay.classList.remove('open');
+  overlay.innerHTML = '';
+}
+
+function escapeHTML(str) {
+  const div = document.createElement('div');
+  div.textContent = str == null ? '' : String(str);
+  return div.innerHTML;
+}
+
+function confirmModal(opts) {
+  const overlay = document.getElementById('modalOverlay');
+  return new Promise((resolve) => {
+    overlay.innerHTML = `
+      <div class="modal-card" role="dialog" aria-modal="true">
+        <h3 class="modal-title">${opts.title}</h3>
+        <p class="modal-body">${opts.body}</p>
+        <div class="modal-actions">
+          <button type="button" class="btn btn-ghost" data-act="cancel">منسوخ کریں</button>
+          <button type="button" class="btn ${opts.danger ? 'btn-danger' : 'btn-primary'}" data-act="ok">${opts.confirmLabel || 'تصدیق کریں'}</button>
+        </div>
+      </div>`;
+    overlay.classList.add('open');
+    function onClick(e) {
+      const btn = e.target.closest('[data-act]');
+      if (!btn) return;
+      overlay.removeEventListener('click', onClick);
+      closeOverlay();
+      resolve(btn.getAttribute('data-act') === 'ok');
+    }
+    overlay.addEventListener('click', onClick);
+  });
+}
+
+function slugify(name) {
+  return name.trim().toLowerCase().replace(/\s+/g, '-').replace(/[^\w\-\u0600-\u06FF]/g, '') || 'user';
+}
+
+async function uniqueUsernameFrom(displayName) {
+  const base = slugify(displayName);
+  let candidate = base;
+  let n = 1;
+  while (state.profiles.some((p) => p.username === candidate)) {
+    n++;
+    candidate = base + '-' + n;
+  }
+  return candidate;
+}
+
+/* ---------------------------------------------------------------------
+   8. PROFILE GATE — list, create, unlock, forgot-password
+   --------------------------------------------------------------------- */
+async function refreshProfileList() {
+  state.profiles = await idbGetAll(STORE_PROFILES);
+  renderProfileGate();
+}
+
+function renderProfileGate() {
+  const list = document.getElementById('profileList');
+  if (!state.profiles.length) {
+    list.innerHTML = `<p class="empty-hint">ابھی کوئی پروفائل موجود نہیں — نیچے دیے گئے بٹن سے اپنا پہلا پروفائل بنائیں۔</p>`;
+    return;
+  }
+  list.innerHTML = state.profiles.map((p) => `
+    <button type="button" class="profile-row" data-username="${escapeHTML(p.username)}">
+      <span class="profile-avatar">${escapeHTML(p.displayName.charAt(0).toUpperCase())}</span>
+      <span class="profile-row-name">${escapeHTML(p.displayName)}</span>
+      <span class="profile-row-arrow" aria-hidden="true">‹</span>
+    </button>`).join('');
+  list.querySelectorAll('.profile-row').forEach((row) => {
+    row.addEventListener('click', () => {
+      const username = row.getAttribute('data-username');
+      const profile = state.profiles.find((p) => p.username === username);
+      openUnlockModal(username, profile.displayName);
+    });
+  });
+}
+
+function openCreateProfileModal() {
+  const overlay = document.getElementById('modalOverlay');
+  overlay.innerHTML = `
+    <div class="modal-card" role="dialog" aria-modal="true">
+      <h3 class="modal-title">نیا پروفائل بنائیں</h3>
+      <form id="createForm" novalidate>
+        <label class="field">
+          <span class="field-label">آپ کا نام</span>
+          <input class="field-input" id="cf_name" type="text" autocomplete="off" placeholder="مثلاً: احمد" />
+        </label>
+        <div class="secret-mode" role="tablist">
+          <button type="button" class="secret-mode-btn active" data-mode="pin">PIN (اعداد)</button>
+          <button type="button" class="secret-mode-btn" data-mode="password">پاس ورڈ</button>
+        </div>
+        <label class="field">
+          <span class="field-label" id="cf_secret_label">4 ہندسوں کا PIN</span>
+          <input class="field-input" id="cf_secret" type="password" inputmode="numeric" autocomplete="off" />
+        </label>
+        <label class="field">
+          <span class="field-label">دوبارہ درج کریں</span>
+          <input class="field-input" id="cf_secret2" type="password" inputmode="numeric" autocomplete="off" />
+        </label>
+        <p class="field-hint">یہ PIN/پاس ورڈ آپ کے تمام ڈیٹا کو اِن‌کرپٹ کرتا ہے۔ اگر یہ بھول گئے تو اس پروفائل کا ڈیٹا واپس نہیں آ سکتا — کوئی بیک ڈور نہیں ہے۔</p>
+        <p class="field-error" id="cf_error"></p>
+        <div class="modal-actions">
+          <button type="button" class="btn btn-ghost" data-act="cancel">منسوخ کریں</button>
+          <button type="submit" class="btn btn-primary">پروفائل بنائیں</button>
+        </div>
+      </form>
+    </div>`;
+  overlay.classList.add('open');
+
+  let mode = 'pin';
+  const modeBtns = overlay.querySelectorAll('.secret-mode-btn');
+  const secretLabel = document.getElementById('cf_secret_label');
+  const secretInput = document.getElementById('cf_secret');
+  const secretInput2 = document.getElementById('cf_secret2');
+  modeBtns.forEach((btn) => {
+    btn.addEventListener('click', () => {
+      modeBtns.forEach((b) => b.classList.remove('active'));
+      btn.classList.add('active');
+      mode = btn.getAttribute('data-mode');
+      secretInput.value = '';
+      secretInput2.value = '';
+      if (mode === 'pin') {
+        secretLabel.textContent = '4 ہندسوں کا PIN';
+        secretInput.setAttribute('inputmode', 'numeric');
+        secretInput2.setAttribute('inputmode', 'numeric');
+      } else {
+        secretLabel.textContent = 'پاس ورڈ (کم از کم 6 حروف)';
+        secretInput.setAttribute('inputmode', 'text');
+        secretInput2.setAttribute('inputmode', 'text');
+      }
+    });
+  });
+
+  const nameInput = document.getElementById('cf_name');
+  setTimeout(() => nameInput.focus(), 30);
+
+  overlay.addEventListener('click', function onOverlayClick(e) {
+    if (e.target.getAttribute('data-act') === 'cancel') {
+      overlay.removeEventListener('click', onOverlayClick);
+      closeOverlay();
+    }
+  });
+
+  document.getElementById('createForm').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const errEl = document.getElementById('cf_error');
+    errEl.textContent = '';
+    const displayName = nameInput.value.trim();
+    const secret = secretInput.value;
+    const secret2 = secretInput2.value;
+    if (!displayName) { errEl.textContent = 'اپنا نام درج کریں'; return; }
+    if (mode === 'pin' && !/^\d{4,8}$/.test(secret)) { errEl.textContent = 'PIN کم از کم 4 ہندسوں کا ہونا چاہیے'; return; }
+    if (mode === 'password' && secret.length < 6) { errEl.textContent = 'پاس ورڈ کم از کم 6 حروف کا ہونا چاہیے'; return; }
+    if (secret !== secret2) { errEl.textContent = 'دونوں اندراجات ایک جیسے نہیں ہیں'; return; }
+
+    try {
+      const username = await uniqueUsernameFrom(displayName);
+      const key = await createProfile(username, displayName, secret);
+      state.data = null;
+      state.reminders = null;
+      closeOverlay();
+      await enterProfile(username, displayName, key);
+      showToast('پروفائل بن گیا — خوش آمدید!', 'success');
+    } catch (err) {
+      errEl.textContent = 'پروفائل بنانے میں مسئلہ ہوا، دوبارہ کوشش کریں';
+    }
+  });
+}
+
+function openUnlockModal(username, displayName) {
+  const overlay = document.getElementById('modalOverlay');
+  overlay.innerHTML = `
+    <div class="modal-card" role="dialog" aria-modal="true">
+      <h3 class="modal-title">${escapeHTML(displayName)} — پروفائل کھولیں</h3>
+      <form id="unlockForm" novalidate>
+        <label class="field">
+          <span class="field-label">PIN یا پاس ورڈ</span>
+          <input class="field-input" id="uf_secret" type="password" autocomplete="off" />
+        </label>
+        <p class="field-error" id="uf_error"></p>
+        <div class="modal-actions modal-actions-3">
+          <button type="button" class="btn btn-ghost" data-act="cancel">منسوخ</button>
+          <button type="button" class="btn btn-ghost btn-danger-text" data-act="forgot">PIN بھول گئے؟</button>
+          <button type="submit" class="btn btn-primary">کھولیں</button>
+        </div>
+      </form>
+    </div>`;
+  overlay.classList.add('open');
+  const secretInput = document.getElementById('uf_secret');
+  setTimeout(() => secretInput.focus(), 30);
+
+  overlay.addEventListener('click', function onOverlayClick(e) {
+    const act = e.target.getAttribute('data-act');
+    if (act === 'cancel') {
+      overlay.removeEventListener('click', onOverlayClick);
+      closeOverlay();
+    } else if (act === 'forgot') {
+      overlay.removeEventListener('click', onOverlayClick);
+      closeOverlay();
+      confirmForgotPassword(username, displayName);
+    }
+  });
+
+  document.getElementById('unlockForm').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const errEl = document.getElementById('uf_error');
+    errEl.textContent = '';
+    try {
+      const result = await unlockProfile(username, secretInput.value);
+      closeOverlay();
+      state.data = result.data;
+      state.reminders = result.reminders;
+      await enterProfile(username, displayName, result.key);
+    } catch (err) {
+      errEl.textContent = 'غلط PIN/پاس ورڈ — دوبارہ کوشش کریں';
+      secretInput.value = '';
+      secretInput.focus();
+    }
+  });
+}
+
+async function confirmForgotPassword(username, displayName) {
+  const ok = await confirmModal({
+    title: 'پروفائل حذف کریں؟',
+    body: `چونکہ ڈیٹا خود PIN/پاس ورڈ سے اِن‌کرپٹ ہوتا ہے، اسے بازیافت کرنے کا کوئی راستہ نہیں۔ آگے بڑھنے کا واحد طریقہ یہ ہے کہ <b>${escapeHTML(displayName)}</b> کا پروفائل اور اس کا تمام محفوظ شدہ ڈیٹا مکمل طور پر حذف کر کے نیا پروفائل بنایا جائے۔ یہ عمل واپس نہیں ہو سکتا۔`,
+    confirmLabel: 'پروفائل حذف کریں',
+    danger: true
+  });
+  if (ok) {
+    await deleteProfileCompletely(username);
+    showToast('پروفائل حذف کر دیا گیا', 'info');
+    await refreshProfileList();
+  }
+}
+
+/* ---------------------------------------------------------------------
+   9. APP SHELL — enter/lock, tab switching, header profile menu
+   --------------------------------------------------------------------- */
+async function enterProfile(username, displayName, key) {
+  state.activeUsername = username;
+  state.displayName = displayName;
+  state.cryptoKey = key;
+  if (!state.data) {
+    const rec = await idbGet(STORE_RECORDS, username);
+    state.data = rec ? await decryptJSON(key, rec.iv, rec.cipher) : createEmptyYearData(new Date().getFullYear());
+  }
+  if (!state.reminders) {
+    state.reminders = await idbGet(STORE_REMINDERS, username);
+  }
+  document.getElementById('profileGate').classList.add('hidden');
+  document.getElementById('appShell').classList.remove('hidden');
+  document.getElementById('profileInitial').textContent = displayName.trim().charAt(0).toUpperCase();
+  document.getElementById('profileNameLabel').textContent = displayName;
+  state.prayerMonthIdx = 0;
+  state.habitMonthIdx = 0;
+  switchTab('prayer');
+  scheduleAllForegroundReminders();
+  registerPeriodicSyncBestEffort();
+}
+
+function lockAndReturnToGate() {
+  clearAllForegroundReminders();
+  state.activeUsername = null;
+  state.cryptoKey = null;
+  state.data = null;
+  state.reminders = null;
+  document.getElementById('profileMenu').classList.add('hidden');
+  document.getElementById('appShell').classList.add('hidden');
+  document.getElementById('profileGate').classList.remove('hidden');
+  refreshProfileList();
+}
+
+function switchTab(tab) {
+  state.activeTab = tab;
+  document.querySelectorAll('.tab-btn').forEach((btn) => {
+    btn.classList.toggle('active', btn.getAttribute('data-tab') === tab);
+  });
+  document.querySelectorAll('.tab-panel').forEach((panel) => {
+    panel.classList.toggle('active', panel.getAttribute('data-panel') === tab);
+  });
+  if (tab === 'prayer') renderPrayerTab();
+  else if (tab === 'habits') renderHabitsTab();
+  else if (tab === 'reminders') renderRemindersTab();
+  else if (tab === 'data') renderDataTab();
+}
+
+function initShellChrome() {
+  document.getElementById('btnAddProfile').addEventListener('click', openCreateProfileModal);
+
+  document.getElementById('tabbar').addEventListener('click', (e) => {
+    const btn = e.target.closest('.tab-btn');
+    if (!btn) return;
+    switchTab(btn.getAttribute('data-tab'));
+  });
+
+  const menuBtn = document.getElementById('btnProfileMenu');
+  const menu = document.getElementById('profileMenu');
+  menuBtn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    menu.classList.toggle('hidden');
+  });
+  document.addEventListener('click', () => menu.classList.add('hidden'));
+  menu.addEventListener('click', (e) => e.stopPropagation());
+
+  menu.querySelector('[data-act="switch"]').addEventListener('click', () => {
+    menu.classList.add('hidden');
+    lockAndReturnToGate();
+  });
+  menu.querySelector('[data-act="delete"]').addEventListener('click', async () => {
+    menu.classList.add('hidden');
+    const ok = await confirmModal({
+      title: 'پروفائل حذف کریں؟',
+      body: `"${escapeHTML(state.displayName)}" کا پورا ڈیٹا ہمیشہ کے لیے حذف ہو جائے گا۔ یہ عمل واپس نہیں ہو سکتا — پہلے بیک اپ ڈاؤن لوڈ کر لینا بہتر رہے گا۔`,
+      confirmLabel: 'حذف کریں',
+      danger: true
+    });
+    if (ok) {
+      const username = state.activeUsername;
+      await deleteProfileCompletely(username);
+      showToast('پروفائل حذف کر دیا گیا', 'info');
+      lockAndReturnToGate();
+    }
+  });
+}
+
+/* ---------------------------------------------------------------------
+   10. PRAYER TAB — month rail, day grid, status cycling, quick actions
+   --------------------------------------------------------------------- */
+function renderPrayerTab() {
+  renderPrayerMonthRail();
+  renderPrayerMonthStats();
+  renderPrayerDayGrid();
+}
+
+function renderPrayerMonthRail() {
+  const rail = document.getElementById('prayerMonthRail');
+  rail.innerHTML = state.data.months.map((m, i) => `
+    <button type="button" class="month-chip ${i === state.prayerMonthIdx ? 'active' : ''}" data-month="${i}">${m.name}</button>
+  `).join('');
+  rail.querySelectorAll('.month-chip').forEach((chip) => {
+    chip.addEventListener('click', () => {
+      state.prayerMonthIdx = Number(chip.getAttribute('data-month'));
+      renderPrayerTab();
+    });
+  });
+  const activeChip = rail.querySelector('.month-chip.active');
+  if (activeChip) activeChip.scrollIntoView({ inline: 'center', block: 'nearest' });
+}
+
+function renderPrayerMonthStats() {
+  const statsEl = document.getElementById('prayerMonthStats');
+  const month = state.data.months[state.prayerMonthIdx];
+  const s = computeMonthPrayerStats(month);
+  statsEl.innerHTML = `
+    <div class="mini-stat mini-stat-adaa"><span class="mini-stat-num">${s.adaa}</span><span class="mini-stat-label">ادا</span></div>
+    <div class="mini-stat mini-stat-qaza"><span class="mini-stat-num">${s.qaza}</span><span class="mini-stat-label">قضا</span></div>
+    <div class="mini-stat mini-stat-missed"><span class="mini-stat-num">${s.missed}</span><span class="mini-stat-label">ترک</span></div>
+    <div class="mini-stat mini-stat-unset"><span class="mini-stat-num">${s.unset}</span><span class="mini-stat-label">خالی</span></div>`;
+}
+
+function renderPrayerDayGrid() {
+  const grid = document.getElementById('prayerDayGrid');
+  const month = state.data.months[state.prayerMonthIdx];
+  grid.innerHTML = month.days.map((day, d) => {
+    const signal = computeSignal(day.prayers);
+    const pills = PRAYER_KEYS.map((k) => {
+      const st = day.prayers[k];
+      return `<button type="button" class="pill pill-${st}" data-prayer="${k}" data-act="cycle" aria-label="${PRAYER_LABELS[k]} — ${STATUS_LABELS[st]}">${PRAYER_SHORT[k]}</button>`;
+    }).join('');
+    return `
+      <div class="day-row" data-day="${d}">
+        <div class="day-lead">
+          <span class="signal-bead signal-${signal}" aria-hidden="true"></span>
+          <span class="day-num">${d + 1}</span>
+        </div>
+        <div class="prayer-pills">${pills}</div>
+        <div class="day-actions">
+          <button type="button" class="mini-btn" data-act="mark-all" title="سب ادا کریں">سب ادا</button>
+          <button type="button" class="mini-btn mini-btn-ghost" data-act="reset-day" title="دن ری سیٹ کریں">ری سیٹ</button>
+        </div>
+      </div>`;
+  }).join('');
+}
+
+function updateDayRowDOM(dayRow, day) {
+  const signal = computeSignal(day.prayers);
+  const bead = dayRow.querySelector('.signal-bead');
+  bead.className = 'signal-bead signal-' + signal;
+  PRAYER_KEYS.forEach((k) => {
+    const btn = dayRow.querySelector(`.pill[data-prayer="${k}"]`);
+    const st = day.prayers[k];
+    btn.className = 'pill pill-' + st;
+    btn.setAttribute('aria-label', `${PRAYER_LABELS[k]} — ${STATUS_LABELS[st]}`);
+  });
+}
+
+function handlePrayerGridClick(e) {
+  const dayRow = e.target.closest('.day-row');
+  const actBtn = e.target.closest('[data-act]');
+  if (!dayRow || !actBtn) return;
+  const dayIdx = Number(dayRow.getAttribute('data-day'));
+  const month = state.data.months[state.prayerMonthIdx];
+  const day = month.days[dayIdx];
+  const act = actBtn.getAttribute('data-act');
+
+  if (act === 'cycle') {
+    const key = actBtn.getAttribute('data-prayer');
+    day.prayers[key] = nextStatus(day.prayers[key]);
+  } else if (act === 'mark-all') {
+    PRAYER_KEYS.forEach((k) => { day.prayers[k] = 'adaa'; });
+  } else if (act === 'reset-day') {
+    PRAYER_KEYS.forEach((k) => { day.prayers[k] = 'unset'; });
+  } else {
+    return;
+  }
+  renderPrayerMonthStats();
+  updateDayRowDOM(dayRow, day);
+  persistDataDebounced();
+}
+
+/* ---------------------------------------------------------------------
+   11. HABITS TAB — month rail, day grid, checkbox toggling, progress
+   --------------------------------------------------------------------- */
+function renderHabitsTab() {
+  renderHabitsMonthRail();
+  renderHabitsDayGrid();
+}
+
+function renderHabitsMonthRail() {
+  const rail = document.getElementById('habitsMonthRail');
+  rail.innerHTML = state.data.months.map((m, i) => `
+    <button type="button" class="month-chip ${i === state.habitMonthIdx ? 'active' : ''}" data-month="${i}">${m.name}</button>
+  `).join('');
+  rail.querySelectorAll('.month-chip').forEach((chip) => {
+    chip.addEventListener('click', () => {
+      state.habitMonthIdx = Number(chip.getAttribute('data-month'));
+      renderHabitsTab();
+    });
+  });
+  const activeChip = rail.querySelector('.month-chip.active');
+  if (activeChip) activeChip.scrollIntoView({ inline: 'center', block: 'nearest' });
+}
+
+function renderHabitsDayGrid() {
+  const grid = document.getElementById('habitsDayGrid');
+  const month = state.data.months[state.habitMonthIdx];
+  grid.innerHTML = month.days.map((day, d) => {
+    const doneCount = HABIT_KEYS.filter((k) => day.habits[k]).length;
+    const percent = Math.round((doneCount / HABIT_KEYS.length) * 100);
+    const checks = HABIT_KEYS.map((k) => `
+      <button type="button" class="check-pill ${day.habits[k] ? 'checked' : ''}" data-habit="${k}" data-act="toggle-habit" aria-pressed="${day.habits[k]}">
+        <span class="check-mark" aria-hidden="true"></span>${HABIT_LABELS[k]}
+      </button>`).join('');
+    return `
+      <div class="habit-row" data-day="${d}">
+        <div class="day-lead"><span class="day-num">${d + 1}</span></div>
+        <div class="habit-checks">${checks}</div>
+        <div class="progress-wrap">
+          <div class="progress-track"><div class="progress-fill" style="width:${percent}%"></div></div>
+          <span class="progress-pct">${percent}%</span>
+        </div>
+      </div>`;
+  }).join('');
+}
+
+function handleHabitsGridClick(e) {
+  const btn = e.target.closest('[data-act="toggle-habit"]');
+  if (!btn) return;
+  const row = e.target.closest('.habit-row');
+  const dayIdx = Number(row.getAttribute('data-day'));
+  const key = btn.getAttribute('data-habit');
+  const month = state.data.months[state.habitMonthIdx];
+  const day = month.days[dayIdx];
+  day.habits[key] = !day.habits[key];
+
+  btn.classList.toggle('checked', day.habits[key]);
+  btn.setAttribute('aria-pressed', String(day.habits[key]));
+  const doneCount = HABIT_KEYS.filter((k) => day.habits[k]).length;
+  const percent = Math.round((doneCount / HABIT_KEYS.length) * 100);
+  const wrap = row.querySelector('.progress-wrap');
+  wrap.querySelector('.progress-fill').style.width = percent + '%';
+  wrap.querySelector('.progress-pct').textContent = percent + '%';
+
+  persistDataDebounced();
+}
+
+/* ---------------------------------------------------------------------
+   12. REMINDERS TAB — permission, schedules, foreground timers, and
+       best-effort background delivery via Periodic Background Sync.
+
+   Reality this section is built around:
+   - An open tab can reliably pop a notification at the right minute
+     via setTimeout. That part always works.
+   - A closed app cannot wake itself on a schedule with client-side
+     code alone. The only fully reliable background channel is the
+     Push API, and Push needs a server to send the push — out of
+     scope for a static, backend-less file.
+   - Periodic Background Sync is the best available fallback: Chrome/
+     Android only, requires the app to be installed, and the browser
+     — not this code — decides how often the service worker actually
+     wakes up (often hours apart, sometimes not at all on battery
+     saver). So instead of chasing an exact minute, the service
+     worker catches up on every wake: "has today's Fajr reminder
+     already fired?" — if not, and its time has passed, fire it late.
+   --------------------------------------------------------------------- */
+function renderRemindersTab() {
+  renderNotifPermCard();
+  renderPrayerReminderRows();
+  renderWeeklyReminderRow();
+}
+
+function renderNotifPermCard() {
+  const card = document.getElementById('notifPermCard');
+  const supported = 'Notification' in window;
+  const perm = supported ? Notification.permission : 'unsupported';
+  const statusLabel = {
+    granted: 'اجازت مل چکی ہے ✓', denied: 'اجازت مسدود ہے — براؤزر سیٹنگز میں بدلیں',
+    default: 'ابھی اجازت نہیں مانگی گئی', unsupported: 'یہ براؤزر اطلاعات سپورٹ نہیں کرتا'
+  }[perm];
+  const statusClass = { granted: 'status-ok', denied: 'status-bad', default: 'status-warn', unsupported: 'status-bad' }[perm];
+  card.innerHTML = `
+    <div class="perm-row">
+      <div>
+        <h3 class="card-title">اطلاعات کی اجازت</h3>
+        <p class="status-line ${statusClass}">${statusLabel}</p>
+      </div>
+      ${perm === 'default' ? '<button type="button" id="btnAskPerm" class="btn btn-primary">اجازت مانگیں</button>' : ''}
+    </div>`;
+  const askBtn = document.getElementById('btnAskPerm');
+  if (askBtn) {
+    askBtn.addEventListener('click', async () => {
+      const res = await Notification.requestPermission();
+      renderNotifPermCard();
+      if (res === 'granted') {
+        showToast('اطلاعات فعال ہو گئیں', 'success');
+        scheduleAllForegroundReminders();
+        registerPeriodicSyncBestEffort();
+      }
+    });
+  }
+}
+
+function renderPrayerReminderRows() {
+  const wrap = document.getElementById('prayerReminderRows');
+  wrap.innerHTML = PRAYER_KEYS.map((k) => {
+    const cfg = state.reminders.prayerTimes[k];
+    return `
+      <div class="reminder-row" data-prayer="${k}">
+        <label class="switch">
+          <input type="checkbox" data-act="toggle-prayer-reminder" data-prayer="${k}" ${cfg.enabled ? 'checked' : ''} />
+          <span class="switch-track"><span class="switch-thumb"></span></span>
+        </label>
+        <span class="reminder-name">${PRAYER_LABELS[k]}</span>
+        <input type="time" class="time-input" data-act="set-prayer-time" data-prayer="${k}" value="${cfg.time}" />
+      </div>`;
+  }).join('');
+
+  wrap.querySelectorAll('[data-act="toggle-prayer-reminder"]').forEach((chk) => {
+    chk.addEventListener('change', () => {
+      const k = chk.getAttribute('data-prayer');
+      state.reminders.prayerTimes[k].enabled = chk.checked;
+      persistReminders();
+      scheduleAllForegroundReminders();
+      if (chk.checked && (typeof Notification === 'undefined' || Notification.permission !== 'granted')) {
+        showToast('پہلے اطلاعات کی اجازت دیں', 'warn');
+      }
+    });
+  });
+  wrap.querySelectorAll('[data-act="set-prayer-time"]').forEach((inp) => {
+    inp.addEventListener('change', () => {
+      const k = inp.getAttribute('data-prayer');
+      state.reminders.prayerTimes[k].time = inp.value;
+      persistReminders();
+      scheduleAllForegroundReminders();
+    });
+  });
+}
+
+function renderWeeklyReminderRow() {
+  const wrap = document.getElementById('weeklyReminderRow');
+  const w = state.reminders.weekly;
+  wrap.innerHTML = `
+    <div class="reminder-row">
+      <label class="switch">
+        <input type="checkbox" id="weeklyToggle" ${w.enabled ? 'checked' : ''} />
+        <span class="switch-track"><span class="switch-thumb"></span></span>
+      </label>
+      <span class="reminder-name">ہفتہ وار جائزہ</span>
+      <input type="time" class="time-input" id="weeklyTime" value="${w.time}" />
+    </div>
+    <div class="weekday-picker" id="weekdayPicker">
+      ${WEEKDAY_NAMES.map((name, i) => `<button type="button" class="weekday-chip ${i === w.day ? 'active' : ''}" data-day="${i}">${name}</button>`).join('')}
+    </div>`;
+
+  document.getElementById('weeklyToggle').addEventListener('change', (e) => {
+    w.enabled = e.target.checked;
+    persistReminders();
+    scheduleAllForegroundReminders();
+  });
+  document.getElementById('weeklyTime').addEventListener('change', (e) => {
+    w.time = e.target.value;
+    persistReminders();
+    scheduleAllForegroundReminders();
+  });
+  document.getElementById('weekdayPicker').addEventListener('click', (e) => {
+    const chip = e.target.closest('.weekday-chip');
+    if (!chip) return;
+    w.day = Number(chip.getAttribute('data-day'));
+    document.querySelectorAll('#weekdayPicker .weekday-chip').forEach((c) => c.classList.remove('active'));
+    chip.classList.add('active');
+    persistReminders();
+    scheduleAllForegroundReminders();
+  });
+}
+
+/* ---- Foreground scheduling (reliable whenever a tab is open) ---- */
+let reminderTimers = {};
+
+function clearAllForegroundReminders() {
+  Object.keys(reminderTimers).forEach((k) => clearTimeout(reminderTimers[k]));
+  reminderTimers = {};
+}
+
+function scheduleAllForegroundReminders() {
+  clearAllForegroundReminders();
+  if (!state.reminders || typeof Notification === 'undefined' || Notification.permission !== 'granted') return;
+  PRAYER_KEYS.forEach((k) => {
+    const cfg = state.reminders.prayerTimes[k];
+    if (cfg.enabled) scheduleOneForegroundReminder('prayer-' + k, cfg.time, `${PRAYER_LABELS[k]} کا وقت ہو گیا`);
+  });
+  const w = state.reminders.weekly;
+  if (w.enabled) scheduleWeeklyForegroundReminder(w);
+}
+
+function scheduleOneForegroundReminder(key, timeStr, body) {
+  const [h, m] = timeStr.split(':').map(Number);
+  const now = new Date();
+  const target = new Date(now.getFullYear(), now.getMonth(), now.getDate(), h, m, 0, 0);
+  if (target <= now) target.setDate(target.getDate() + 1);
+  const delay = target.getTime() - now.getTime();
+  reminderTimers[key] = setTimeout(() => {
+    fireNotification('نماز یاد دہانی', body);
+    scheduleOneForegroundReminder(key, timeStr, body);
+  }, delay);
+}
+
+function scheduleWeeklyForegroundReminder(w) {
+  const [h, m] = w.time.split(':').map(Number);
+  const now = new Date();
+  const target = new Date(now.getFullYear(), now.getMonth(), now.getDate(), h, m, 0, 0);
+  const diffDays = (w.day - now.getDay() + 7) % 7;
+  target.setDate(target.getDate() + diffDays);
+  if (target <= now) target.setDate(target.getDate() + 7);
+  const delay = target.getTime() - now.getTime();
+  reminderTimers.weekly = setTimeout(() => {
+    fireNotification('ہفتہ وار جائزہ', 'اس ہفتے کی نمازوں اور عادات کا جائزہ لینے کا وقت ہو گیا');
+    scheduleWeeklyForegroundReminder(w);
+  }, delay);
+}
+
+async function fireNotification(title, body) {
+  if (typeof Notification === 'undefined' || Notification.permission !== 'granted') return;
+  try {
+    const reg = ('serviceWorker' in navigator) ? await navigator.serviceWorker.getRegistration() : null;
+    if (reg) {
+      reg.showNotification(title, { body, dir: 'rtl', lang: 'ur', icon: iconDataURI(192), badge: iconDataURI(96) });
+    } else {
+      new Notification(title, { body, dir: 'rtl', lang: 'ur' });
+    }
+  } catch (e) { /* blocked mid-session or unsupported — fail quietly */ }
+}
+
+async function handleTestNotification() {
+  if (typeof Notification === 'undefined') { showToast('یہ براؤزر اطلاعات سپورٹ نہیں کرتا', 'error'); return; }
+  if (Notification.permission !== 'granted') {
+    const res = await Notification.requestPermission();
+    renderNotifPermCard();
+    if (res !== 'granted') { showToast('اجازت نہیں دی گئی', 'warn'); return; }
+  }
+  fireNotification('ٹیسٹ اطلاع', 'یہ ایک آزمائشی اطلاع ہے — سب کچھ ٹھیک کام کر رہا ہے۔');
+  showToast('ٹیسٹ اطلاع بھیج دی گئی', 'success');
+}
+
+/* ---- Best-effort background delivery via Periodic Background Sync ---- */
+async function registerPeriodicSyncBestEffort() {
+  if (!('serviceWorker' in navigator)) return;
+  try {
+    const reg = await navigator.serviceWorker.ready;
+    if (!('periodicSync' in reg)) return;
+    const status = await navigator.permissions.query({ name: 'periodic-background-sync' });
+    if (status.state === 'granted') {
+      await reg.periodicSync.register('prayer-reminder-check', { minInterval: 60 * 60 * 1000 });
+    }
+  } catch (e) { /* not supported on this browser/platform — foreground timers still cover it */ }
+}
+
+/* ---------------------------------------------------------------------
+   13. DATA & ANALYTICS TAB — stats, hand-rolled SVG charts, backup
+   --------------------------------------------------------------------- */
+function renderDataTab() {
+  renderStatCards();
+  renderBarChart();
+  renderRingChart();
+}
+
+function renderStatCards() {
+  const wrap = document.getElementById('statCards');
+  const { totals } = computeYearPrayerStats(state.data);
+  const { current, best } = computeStreaks(state.data);
+  wrap.innerHTML = `
+    <div class="stat-card"><span class="stat-num">${totals.adaa}</span><span class="stat-label">کل ادا</span></div>
+    <div class="stat-card"><span class="stat-num">${totals.qaza}</span><span class="stat-label">کل قضا</span></div>
+    <div class="stat-card"><span class="stat-num">${totals.missed}</span><span class="stat-label">کل ترک</span></div>
+    <div class="stat-card"><span class="stat-num">${current}</span><span class="stat-label">موجودہ لگاتار دن</span></div>
+    <div class="stat-card"><span class="stat-num">${best}</span><span class="stat-label">بہترین لگاتار دن</span></div>`;
+}
+
+function renderBarChart() {
+  const container = document.getElementById('barChart');
+  const { perMonth } = computeYearPrayerStats(state.data);
+  const totalPerMonth = DAYS_PER_MONTH * PRAYER_KEYS.length;
+  const w = 640, h = 220, padX = 24, padY = 28;
+  const chartW = w - padX * 2, chartH = h - padY * 2;
+  const slotW = chartW / 12;
+  const barW = slotW * 0.5;
+  let bars = '';
+  perMonth.forEach((m, i) => {
+    const p = pct(m.adaa, totalPerMonth);
+    const barH = (p / 100) * chartH;
+    const cx = padX + slotW * i + slotW / 2;
+    const x = cx - barW / 2;
+    const y = h - padY - barH;
+    bars += `<rect x="${x.toFixed(1)}" y="${y.toFixed(1)}" width="${barW.toFixed(1)}" height="${Math.max(barH, 2).toFixed(1)}" rx="5" class="chart-bar"><title>${m.name}: ${p}%</title></rect>`;
+    bars += `<text x="${cx.toFixed(1)}" y="${h - 8}" class="chart-axis-label" text-anchor="middle">${i + 1}</text>`;
+  });
+  container.innerHTML = `<svg viewBox="0 0 ${w} ${h}" class="chart-svg" role="img" aria-label="ماہانہ ادائیگی فیصد">${bars}</svg>`;
+}
+
+function renderRingChart() {
+  const wrap = document.getElementById('ringChartWrap');
+  const { totals } = computeYearPrayerStats(state.data);
+  const attempted = totals.adaa + totals.qaza + totals.missed;
+  const p = pct(totals.adaa, attempted || 1);
+  const r = 58, c = 2 * Math.PI * r;
+  const offset = c - (p / 100) * c;
+  wrap.innerHTML = `
+    <svg viewBox="0 0 160 160" class="ring-chart" role="img" aria-label="مجموعی ادائیگی فیصد">
+      <circle cx="80" cy="80" r="${r}" class="ring-bg" />
+      <circle cx="80" cy="80" r="${r}" class="ring-fg" style="stroke-dasharray:${c.toFixed(1)};stroke-dashoffset:${offset.toFixed(1)}" transform="rotate(-90 80 80)" />
+      <text x="80" y="76" text-anchor="middle" class="ring-num">${p}%</text>
+      <text x="80" y="96" text-anchor="middle" class="ring-caption">ادا</text>
+    </svg>
+    <p class="ring-note">فیصد صرف اُن نمازوں میں سے جن پر کوئی حالت درج کی جا چکی ہے (خالی نمازیں شامل نہیں)</p>`;
+}
+
+async function handleExportBackup() {
+  try {
+    const allProfiles = await idbGetAll(STORE_PROFILES);
+    const allRecords = await idbGetAll(STORE_RECORDS);
+    const allReminders = await idbGetAll(STORE_REMINDERS);
+    const payload = {
+      app: 'salah-habit-tracker', exportedAt: new Date().toISOString(), version: 1,
+      profiles: allProfiles, records: allRecords, reminders: allReminders
+    };
+    const blob = new Blob([JSON.stringify(payload, null, 2)], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    const stamp = new Date().toISOString().slice(0, 10);
+    a.href = url;
+    a.download = `namaz-tracker-backup-${stamp}.json`;
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    setTimeout(() => URL.revokeObjectURL(url), 2000);
+    showToast('بیک اپ ڈاؤن لوڈ ہو گیا', 'success');
+  } catch (e) {
+    showToast('بیک اپ بنانے میں مسئلہ ہوا', 'error');
+  }
+}
+
+async function handleImportFile(file) {
+  try {
+    const text = await file.text();
+    const payload = JSON.parse(text);
+    if (!payload || !Array.isArray(payload.profiles) || !Array.isArray(payload.records)) {
+      throw new Error('invalid_format');
+    }
+    const existing = await idbGetAll(STORE_PROFILES);
+    const overlapping = payload.profiles.filter((p) => existing.some((e) => e.username === p.username));
+    const ok = await confirmModal({
+      title: 'بیک اپ بحال کریں؟',
+      body: overlapping.length
+        ? `اس فائل میں ${payload.profiles.length} پروفائل ہیں، جن میں سے ${overlapping.length} پہلے سے موجود پروفائلز سے ٹکراتے ہیں اور اوور رائٹ ہو جائیں گے۔ باقی نئے پروفائلز کے طور پر شامل ہوں گے۔ جاری رکھیں؟`
+        : `اس فائل میں ${payload.profiles.length} پروفائل شامل ہیں، سب نئے پروفائلز کے طور پر شامل ہوں گے۔ جاری رکھیں؟`,
+      confirmLabel: 'بحال کریں',
+      danger: overlapping.length > 0
+    });
+    if (!ok) return;
+
+    for (const p of payload.profiles) await idbPut(STORE_PROFILES, p);
+    for (const r of payload.records) await idbPut(STORE_RECORDS, r);
+    for (const rm of (payload.reminders || [])) await idbPut(STORE_REMINDERS, rm);
+
+    showToast('بیک اپ بحال ہو گیا', 'success');
+    if (state.activeUsername) {
+      const rec = await idbGet(STORE_RECORDS, state.activeUsername);
+      if (rec && state.cryptoKey) {
+        try {
+          state.data = await decryptJSON(state.cryptoKey, rec.iv, rec.cipher);
+          renderPrayerTab(); renderHabitsTab(); renderDataTab();
+        } catch (e) { /* this profile's password changed in the restored file — keep current session data as-is */ }
+      }
+    }
+  } catch (e) {
+    showToast('فائل پڑھنے میں مسئلہ ہوا — درست بیک اپ فائل منتخب کریں', 'error');
+  }
+}
+
+async function handleResetYearData() {
+  const ok = await confirmModal({
+    title: 'اس سال کا ڈیٹا صاف کریں؟',
+    body: 'تمام 12 مہینوں کی نمازیں اور عادات خالی کر دی جائیں گی۔ آپ کا پروفائل اور پاس ورڈ برقرار رہے گا۔ پہلے بیک اپ لے لینا بہتر رہے گا۔',
+    confirmLabel: 'ڈیٹا صاف کریں',
+    danger: true
+  });
+  if (!ok) return;
+  state.data = createEmptyYearData(state.data.year);
+  await persistData();
+  renderPrayerTab(); renderHabitsTab(); renderDataTab();
+  showToast('اس سال کا ڈیٹا صاف کر دیا گیا', 'info');
+}
+
+/* ---------------------------------------------------------------------
+   14. INIT / BOOTSTRAP
+   --------------------------------------------------------------------- */
+function initTabListeners() {
+  document.getElementById('prayerDayGrid').addEventListener('click', handlePrayerGridClick);
+  document.getElementById('habitsDayGrid').addEventListener('click', handleHabitsGridClick);
+  document.getElementById('btnTestNotif').addEventListener('click', handleTestNotification);
+  document.getElementById('btnExport').addEventListener('click', handleExportBackup);
+  document.getElementById('fileImport').addEventListener('change', (e) => {
+    const file = e.target.files[0];
+    if (file) handleImportFile(file);
+    e.target.value = '';
+  });
+  document.getElementById('btnResetData').addEventListener('click', handleResetYearData);
+}
+
+async function registerServiceWorker() {
+  if (!('serviceWorker' in navigator)) return;
+  try {
+    await navigator.serviceWorker.register('sw.js');
+  } catch (e) {
+    // Service workers require a real http(s) origin (or localhost).
+    // Opening this file directly (file://) lands here — offline support and
+    // background reminders simply won't be available until it's served
+    // properly, but every other part of the app still works without it.
+    console.warn('Service worker registration skipped:', e);
+  }
+}
+
+document.addEventListener('DOMContentLoaded', async () => {
+  registerServiceWorker();
+  initShellChrome();
+  initTabListeners();
+  await refreshProfileList();
+});
+
+</script>
+</body>
+</html>
